@@ -4,6 +4,6 @@ def parseAndSaveOutputFile(slices: list, outputFilePath):
         f.write('\n')
 
         for slice in slices:
-            f.write(' '.join(slice))
+            f.write(' '.join(map(str, slice)))
             f.write('\n')
 

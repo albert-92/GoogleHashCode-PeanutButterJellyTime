@@ -1,14 +1,18 @@
-from pizza.default.fileInput import readAndParseInputFile
+from pizza.default.fileInput import *
+from pizza.default.fileOutput import *
 import math
 
 inputPath = '../input/'
+outputPath = './output/'
 
-exampleFile = inputPath + 'example.in'
-smallFile = inputPath + 'small.in'
-mediumFile = inputPath + 'medium.in'
-bigFile = inputPath + 'big.in'
+exampleFile = 'example'
+smallFile = 'small'
+mediumFile = 'medium'
+bigFile = 'big'
 
-info, pizza = readAndParseInputFile(exampleFile)
+currentFile = smallFile
+
+info, pizza = readAndParseInputFile(inputPath + currentFile + '.in')
 
 print(info)
 print(pizza)
@@ -25,3 +29,5 @@ for x in range(0, int(info['rows'])-size+1, size):
 
 print(numSlices)
 print(slices)
+
+parseAndSaveOutputFile(slices, outputPath + currentFile + '.out')
