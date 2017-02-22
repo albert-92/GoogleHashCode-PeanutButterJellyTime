@@ -23,8 +23,8 @@ slices = []
 
 for x in range(0, int(info['rows'])-size+1, size):
     for y in range(0, int(info['columns'])-size+1, size):
-        xend = x+size
-        yend = y+size
+        xend = x+size-1
+        yend = y+size-1
         slices.append([x, y, xend, yend])
 
 print(slices)
