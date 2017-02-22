@@ -1,7 +1,7 @@
-def readAndParseInputFile(filePath):
+def readAndParseInputFile(inputFilePath):
     lines = []
 
-    with open(filePath) as f:
+    with open(inputFilePath) as f:
         lines = [line.rstrip('\n') for line in f]
 
     firstLineSplittet = lines.pop(0).split()
