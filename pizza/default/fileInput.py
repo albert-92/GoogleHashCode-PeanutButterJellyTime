@@ -1,5 +1,4 @@
 def readAndParseInputFile(inputFilePath):
-    lines = []
 
     with open(inputFilePath) as f:
         lines = [line.rstrip('\n') for line in f]

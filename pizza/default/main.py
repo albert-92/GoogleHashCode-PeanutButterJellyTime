@@ -1,7 +1,13 @@
-from .fileInput import *
-from .fileOutput import *
 
-info, pizza = readAndParseInputFile('../input/example.in')
+
+inputPath = '../input/'
+
+exampleFile = inputPath + 'example.in'
+smallFile = inputPath + 'small.in'
+mediumFile = inputPath + 'medium.in'
+bigFile = inputPath + 'big.in'
+
+info, pizza = readAndParseInputFile(exampleFile)
 
 print(info)
 print(pizza)
