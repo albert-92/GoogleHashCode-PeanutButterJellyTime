@@ -1,4 +1,4 @@
-
+from pizza.default.fileInput import readAndParseInputFile
 
 inputPath = '../input/'
 
