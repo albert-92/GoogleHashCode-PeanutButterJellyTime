@@ -27,6 +27,8 @@ def readAndParseInputFile(inputFilePath):
     endpoints = []
 
     for e in range(info['E']):
+
+
         nextLineSplittet = lines.pop(0).split()
 
         endpoint = {
@@ -35,7 +37,10 @@ def readAndParseInputFile(inputFilePath):
             'Caches': []
         }
 
+        # print(endpoint['K'])
+
         for k in range(endpoint['K']):
+
             nextLineSplittet = lines.pop(0).split()
 
             endpoint['Caches'].append(

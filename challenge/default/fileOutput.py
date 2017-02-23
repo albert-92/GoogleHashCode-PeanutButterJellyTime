@@ -4,7 +4,7 @@ def parseAndSaveOutputFile(caches: list, outputFilePath):
         f.write('\n')
 
         for cache in caches:
-            f.write(str(len(cache)))
+            f.write(str(caches.index(cache)) + ' ')
             f.write(' '.join(map(str, cache)))
             f.write('\n')
 
