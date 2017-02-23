@@ -1,9 +1,10 @@
-def parseAndSaveOutputFile(slices: list, outputFilePath):
+def parseAndSaveOutputFile(caches: list, outputFilePath):
     with open(outputFilePath, 'w') as f:
-        f.write(str(len(slices)))
+        f.write(str(len(caches)))
         f.write('\n')
 
-        for slice in slices:
-            f.write(' '.join(map(str, slice)))
+        for cache in caches:
+            f.write(str(len(cache)))
+            f.write(' '.join(map(str, cache)))
             f.write('\n')
 
