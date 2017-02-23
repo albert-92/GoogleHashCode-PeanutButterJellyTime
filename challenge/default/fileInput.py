@@ -5,18 +5,65 @@ def readAndParseInputFile(inputFilePath):
 
     firstLineSplittet = lines.pop(0).split()
 
-    parsedData = {
-        'rows': firstLineSplittet[0],
-        'columns': firstLineSplittet[1],
-        'minIngredientPerSlice': firstLineSplittet[2],
-        'maxCellsPerSlice': firstLineSplittet[3]
+    info = {
+        'V': int(firstLineSplittet[0]),
+        'E': int(firstLineSplittet[1]),
+        'R': int(firstLineSplittet[2]),
+        'C': int(firstLineSplittet[3]),
+        'X': int(firstLineSplittet[4])
     }
 
-    pizza = []
+    nextLineSplittet = lines.pop(0).split()
+
+    # print(info)
+
+    videos = []
+
+    for video in nextLineSplittet:
+        videos.append(int(video))
+
+    # print(videos)
+
+    endpoints = []
+
+    for e in range(info['E']):
+        nextLineSplittet = lines.pop(0).split()
+
+        endpoint = {
+            'LD': int(nextLineSplittet[0]),
+            'K': int(nextLineSplittet[1]),
+            'Caches': []
+        }
+
+        for k in range(endpoint['K']):
+            nextLineSplittet = lines.pop(0).split()
+
+            endpoint['Caches'].append(
+                {
+                    'c': nextLineSplittet[0],
+                    'Lc': nextLineSplittet[1]
+                }
+            )
+
+        endpoints.append(endpoint)
+
+    # print(endpoints)
+
+    requests = []
 
     for line in lines:
-        pizza.append(list(line))
+        nextLineSplittet = line.split()
 
-    return parsedData, pizza
+        request = {
+            'Rv': int(nextLineSplittet[0]),
+            'Re': int(nextLineSplittet[1]),
+            'Rn': int(nextLineSplittet[2])
+        }
+
+        requests.append(request)
+
+    # print(requests)
+
+    return info, videos, endpoints, requests
 
 

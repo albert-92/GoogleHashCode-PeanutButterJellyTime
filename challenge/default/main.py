@@ -1,32 +1,20 @@
-from pizza.default.fileInput import *
-from pizza.default.fileOutput import *
+from challenge.default.fileInput import *
+from challenge.default.fileOutput import *
 import math
 
 inputPath = '../input/'
 outputPath = './output/'
 
-exampleFile = 'example'
-smallFile = 'small'
-mediumFile = 'medium'
-bigFile = 'big'
+kittens = 'kittens'
+me_at_the_zoo = 'me_at_the_zoo'
+trending_today = 'trending_today'
+videos_worth_spreading = 'videos_worth_spreading'
 
-currentFile = bigFile
+currentFile = me_at_the_zoo
 
-info, pizza = readAndParseInputFile(inputPath + currentFile + '.in')
+info, videos, endpoints, requests = readAndParseInputFile(inputPath + currentFile + '.in')
 
 print(info)
-print(pizza)
-
-size = math.floor(math.sqrt(int(info['maxCellsPerSlice'])))
-
-slices = []
-
-for x in range(0, int(info['rows'])-size+1, size):
-    for y in range(0, int(info['columns'])-size+1, size):
-        xend = x+size-1
-        yend = y+size-1
-        slices.append([x, y, xend, yend])
-
-print(slices)
-
-parseAndSaveOutputFile(slices, outputPath + currentFile + '.out')
+print(videos)
+print(endpoints)
+print(requests)
