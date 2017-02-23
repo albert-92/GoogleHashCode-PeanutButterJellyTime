@@ -1,11 +1,12 @@
 from simanneal import Annealer
 from challenge.default.fileInput import *
-from challenge.default.fileOutput import *
+from challenge.default.fileOutputv2 import *
+from challenge.default.mainAlbertv3 import *
 import math
 import random
 
 inputPath = '../input/'
-outputPath = './output/'
+outputPath = './outputv6/'
 
 kittens = 'kittens'
 me_at_the_zoo = 'me_at_the_zoo'
@@ -25,7 +26,7 @@ info, videos, endpoints, requests = readAndParseInputFile(inputPath + currentFil
 class ChallengeProblem(Annealer):
 
     def __init__(self, state):
-        state = {c:set() for c in range(info['C'])}
+        # state = {c:set() for c in range(info['C'])}
         super(ChallengeProblem, self).__init__(state)
 
     def move(self):
@@ -85,9 +86,13 @@ class ChallengeProblem(Annealer):
 # tsp = ChallengeProblem(initial_state)
 # best_state, best_energy = tsp.anneal()
 
-prob = ChallengeProblem(-1)
+prob = ChallengeProblem(startState())
 prob.updates = 10
 prob.steps = 10000
 best_state, best_energy = prob.anneal()
 print(best_state)
 print(best_energy)
+
+parseAndSaveOutputFile(best_state, outputPath + currentFile + '.out')
+
+

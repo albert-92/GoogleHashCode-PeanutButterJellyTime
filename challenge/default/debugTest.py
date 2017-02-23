@@ -12,7 +12,7 @@ me_at_the_zoo = 'me_at_the_zoo'
 trending_today = 'trending_today'
 videos_worth_spreading = 'videos_worth_spreading'
 
-currentFile = kittens
+currentFile = videos_worth_spreading
 
 info, videos, endpoints, requests = readAndParseInputFile(inputPath + currentFile + '.in')
 

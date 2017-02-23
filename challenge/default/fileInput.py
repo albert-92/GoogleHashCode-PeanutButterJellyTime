@@ -45,8 +45,8 @@ def readAndParseInputFile(inputFilePath):
 
             endpoint['Caches'].append(
                 {
-                    'c': nextLineSplittet[0],
-                    'Lc': nextLineSplittet[1]
+                    'c': int(nextLineSplittet[0]),
+                    'Lc': int(nextLineSplittet[1])
                 }
             )
 

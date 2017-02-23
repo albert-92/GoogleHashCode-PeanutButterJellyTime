@@ -64,7 +64,7 @@ for endpoint in endpointVideoRanking:
 
     # print(endpoint)
 
-    if endpointOutputs.__len__() < 500:
+    if endpointOutputs.__len__() < info['C']:
         endpointOutputs.append(endpointVideos)
 
 # print(endpointOutputs)

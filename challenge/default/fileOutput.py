@@ -3,8 +3,12 @@ def parseAndSaveOutputFile(caches: list, outputFilePath):
         f.write(str(len(caches)))
         f.write('\n')
 
+        i = 0
+
         for cache in caches:
-            f.write(str(caches.index(cache)) + ' ')
+            f.write(str(i) + ' ')
             f.write(' '.join(map(str, cache)))
             f.write('\n')
+
+            i += 1
 
