@@ -31,6 +31,12 @@ class ChallengeProblem(Annealer):
     def move(self):
         for i in range(5):
             randomCache =  random.randint(0,info['C']-1)
+            size = self.state[randomCache].len()
+            randomVideo = random.randint(0, size - 1)
+            self.state[randomCache] = self.state[randomCache].remove(randomVideo)
+
+        for i in range(5):
+            randomCache =  random.randint(0,info['C']-1)
             randomVideo = random.randint(0,info['V']-1)
             videoSizes = list(map(lambda x: videos[x], self.state[randomCache]))
             if(sum(videoSizes+videos[randomVideo])<=info['X']):
