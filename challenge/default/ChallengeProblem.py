@@ -2,6 +2,7 @@ from simanneal import Annealer
 from challenge.default.fileInput import *
 from challenge.default.fileOutput import *
 import math
+import random
 
 inputPath = '../input/'
 outputPath = './output/'
@@ -24,14 +25,17 @@ info, videos, endpoints, requests = readAndParseInputFile(inputPath + currentFil
 class ChallengeProblem(Annealer):
 
     def __init__(self, state):
-        self.state = {c:[] for c in range(info['C'])}
+        state = {c:set() for c in range(info['C'])}
         super(ChallengeProblem, self).__init__(state)
 
     def move(self):
-        self.state = self.state
+        for i in range(10):
+            randomCache =  random.randint(0,info['C']-1)
+            randomVideo = random.randint(0,info['V']-1)
+            self.state[randomCache] = self.state[randomCache]|{randomVideo}
 
     def energy(self):
-        return sum(self.state)
+        return self.score()
 
     def score(self):
         score = 0
@@ -39,6 +43,7 @@ class ChallengeProblem(Annealer):
             numRequests = request['Rn']
             minLatency, minLatCache = self.findBestLatency(endpointId=request['Re'], videoId=request['Rv'])
             score += numRequests*minLatency
+        return score
 
 
 
@@ -58,19 +63,19 @@ class ChallengeProblem(Annealer):
         endpoint = endpoints[endpointId]
         connectedCaches = endpoint['K']
         minLatency =  endpoint['LD']
-        minLatCache = -1
+        minLatCacheId = -1
         for cacheId in range(connectedCaches):
             if videoId in self.state[cacheId]:
-                connected, latency = self.getLatency(endpoint['Chaches'], cacheId)
-                if connected & minLatency > latency:
+                connected, latency = self.getLatency(endpoint['Caches'], cacheId)
+                if connected & (minLatency > latency):
                     minLatency = latency
                     minLatCacheId = cacheId
         return minLatency, minLatCacheId
 
     def getLatency(self, chaches, cacheId):
         for cache in chaches:
-            if cache['c']==cacheId:
-                return True, cache['Lc']
+            if cache['c']==str(cacheId):
+                return True, int(cache['Lc'])
         return False,0
 
 
@@ -81,3 +86,8 @@ class ChallengeProblem(Annealer):
 # best_state, best_energy = tsp.anneal()
 
 prob = ChallengeProblem(-1)
+prob.updates = 10
+prob.steps = 10000
+best_state, best_energy = prob.anneal()
+print(best_state)
+print(best_energy)
