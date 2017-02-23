@@ -23,9 +23,8 @@ info, videos, endpoints, requests = readAndParseInputFile(inputPath + currentFil
 
 class ChallengeProblem(Annealer):
 
-    def __init__(self, state, data):
-        self.data = data
-        self.cacheAssign = {c:[] for c in range(info['C'])}
+    def __init__(self, state):
+        self.state = {c:[] for c in range(info['C'])}
         super(ChallengeProblem, self).__init__(state)
 
     def move(self):
@@ -34,33 +33,45 @@ class ChallengeProblem(Annealer):
     def energy(self):
         return sum(self.state)
 
+    def score(self):
+        score = 0
+        for request in requests:
+            numRequests = request['Rn']
+            minLatency, minLatCache = self.findBestLatency(endpointId=request['Re'], videoId=request['Rv'])
+            score += numRequests*minLatency
+
+
+
     def scoreAddVideo(self, cache, video):
         score = 0
         for endpointId in range(info['E']):
             for request in range(info['R']):
                 if(requests[request]['Rv']==video):
                     minLatency, minLatCache = self.findBestLatency(video, endpointId)
-                    newLatency = dict(endpoints[endpointId])[cache]
+                    newLatency = endpoints[endpointId][cache]
                     if(newLatency<minLatency):
                         score += -(newLatency-minLatency)
         return score
 
 
-
-
-    def findBestLatency(self, video, endpointId):
+    def findBestLatency(self, endpointId, videoId):
         endpoint = endpoints[endpointId]
         connectedCaches = endpoint['K']
         minLatency =  endpoint['LD']
         minLatCache = -1
-        for cache in range(connectedCaches):
-            if video in self.cacheAssign[cache]:
-                latency = dict(endpoint['Chaches'])[cache]
-                if minLatency > latency:
+        for cacheId in range(connectedCaches):
+            if videoId in self.state[cacheId]:
+                connected, latency = self.getLatency(endpoint['Chaches'], cacheId)
+                if connected & minLatency > latency:
                     minLatency = latency
-                    minLatCache = cache
-        return minLatency, minLatCache
+                    minLatCacheId = cacheId
+        return minLatency, minLatCacheId
 
+    def getLatency(self, chaches, cacheId):
+        for cache in chaches:
+            if cache['c']==cacheId:
+                return True, cache['Lc']
+        return False,0
 
 
 
@@ -69,5 +80,4 @@ class ChallengeProblem(Annealer):
 # tsp = ChallengeProblem(initial_state)
 # best_state, best_energy = tsp.anneal()
 
-prob = ChallengeProblem(-1,-1)
-print (prob.scoreAddVideo(0,0))
+prob = ChallengeProblem(-1)
