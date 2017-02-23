@@ -29,10 +29,12 @@ class ChallengeProblem(Annealer):
         super(ChallengeProblem, self).__init__(state)
 
     def move(self):
-        for i in range(10):
+        for i in range(5):
             randomCache =  random.randint(0,info['C']-1)
             randomVideo = random.randint(0,info['V']-1)
-            self.state[randomCache] = self.state[randomCache]|{randomVideo}
+            videoSizes = list(map(lambda x: videos[x], self.state[randomCache]))
+            if(sum(videoSizes+videos[randomVideo])<=info['X']):
+                self.state[randomCache] = self.state[randomCache]|{randomVideo}
 
     def energy(self):
         return self.score()
